@@ -6,13 +6,13 @@ import {openGraphMixin} from "@/assets/ogimage/openGraphMixin";
   mixins: [openGraphMixin],
   mounted() {
     const mainTitle = 'Page NOT Found';
-    // const title = 'Cryptocurrencies - Page NOT Found';
-    // const metaDescription = 'Cryptocurrencies powered by CoinGecko';
-    // const description = 'Cryptocurrencies - Page NOT Found';
-    // const imageUrl = 'https://currencies-zeta.vercel.app/assets/ogimage/bmp/image_404.jpg';
-    // const url = 'https://currencies-zeta.vercel.app';
-    //
-    // this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
+    const title = 'Cryptocurrencies - Page NOT Found';
+    const metaDescription = 'Cryptocurrencies powered by CoinGecko';
+    const description = 'Cryptocurrencies - Page NOT Found';
+    const imageUrl = 'https://cryptocurrencies-gold.vercel.app/assets/ogimage/bmp/image_404.jpg';
+    const url = 'https://cryptocurrencies-gold.vercel.app';
+
+    this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
     this.setPageTitle(mainTitle);
   },
   methods: {},

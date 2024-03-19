@@ -13,13 +13,13 @@ import Cryptocurrencies from "@/components/other/Cryptocurrencies.vue";
   },
   mounted() {
     const mainTitle = 'Cryptocurrencies Old';
-    // const title = 'Cryptocurrencies Old';
-    // const metaDescription = 'Cryptocurrencies powered by CoinGecko';
-    // const description = 'Cryptocurrencies powered by CoinGecko';
-    // const imageUrl = 'https://currencies-zeta.vercel.app/assets/ogimage/bmp/project4.jpg';
-    // const url = 'https://currencies-zeta.vercel.app/project4';
-    //
-    // this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
+    const title = 'Cryptocurrencies Old';
+    const metaDescription = 'Cryptocurrencies powered by CoinGecko';
+    const description = 'Cryptocurrencies powered by CoinGecko';
+    const imageUrl = 'https://cryptocurrencies-gold.vercel.app/assets/ogimage/bmp/project4.jpg';
+    const url = 'https://cryptocurrencies-gold.vercel.app/project4';
+
+    this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
     this.setPageTitle(mainTitle);
   },
   methods: {

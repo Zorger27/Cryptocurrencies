@@ -13,13 +13,13 @@ import CurrentDate from "@/components/util/CurrentDate.vue";
   },
   mounted() {
     const mainTitle = 'Cryptocurrencies v.2.0';
-    // const title = 'Cryptocurrencies v.2.0';
-    // const metaDescription = 'Cryptocurrencies powered by CoinGecko';
-    // const description = 'Cryptocurrencies powered by CoinGecko';
-    // const imageUrl = 'https://currencies-zeta.vercel.app/assets/ogimage/bmp/project3.jpg';
-    // const url = 'https://currencies-zeta.vercel.app/project3';
-    //
-    // this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
+    const title = 'Cryptocurrencies v.2.0';
+    const metaDescription = 'Cryptocurrencies powered by CoinGecko';
+    const description = 'Cryptocurrencies powered by CoinGecko';
+    const imageUrl = 'https://cryptocurrencies-gold.vercel.app/assets/ogimage/bmp/project3.jpg';
+    const url = 'https://cryptocurrencies-gold.vercel.app/project3';
+
+    this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
     this.setPageTitle(mainTitle);
   },
   methods: {
