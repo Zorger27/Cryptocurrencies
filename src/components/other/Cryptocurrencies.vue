@@ -11,15 +11,20 @@ interface CryptoResponse {
   data() {
     return {
       cryptos: [
-        {id: 'bitcoin', name: 'Bitcoin', url: 'https://www.coingecko.com/en/coins/bitcoin', price: 0},
-        {id: 'ethereum', name: 'Ethereum', url: 'https://www.coingecko.com/en/coins/ethereum', price: 0},
-        {id: 'litecoin', name: 'Litecoin', url: 'https://www.coingecko.com/en/coins/litecoin', price: 0},
-        {id: 'tether', name: 'Tether', url: 'https://www.coingecko.com/en/coins/tether', price: 0},
-        {id: 'avalanche-2', name: 'Avalanche', url: 'https://www.coingecko.com/en/coins/avalanche', price: 0},
-        {id: 'filecoin', name: 'Filecoin', url: 'https://www.coingecko.com/en/coins/filecoin', price: 0},
-        {id: 'bitcoin-cash', name: 'Bitcoin Cash', url: 'https://www.coingecko.com/en/coins/bitcoin-cash', price: 0},
-        {id: 'binancecoin', name: 'BNB', url: 'https://www.coingecko.com/en/coins/bnb', price: 0},
-        {id: 'dogecoin', name: 'Dogecoin', url: 'https://www.coingecko.com/en/coins/dogecoin', price: 0},
+        { id: 'bitcoin', name: 'Bitcoin', url: 'https://www.coingecko.com/en/coins/bitcoin', price: 0 },
+        { id: 'ethereum', name: 'Ethereum', url: 'https://www.coingecko.com/en/coins/ethereum', price: 0 },
+        { id: 'litecoin', name: 'Litecoin', url: 'https://www.coingecko.com/en/coins/litecoin', price: 0 },
+        { id: 'tether', name: 'Tether', url: 'https://www.coingecko.com/en/coins/tether', price: 0 },
+        { id: 'avalanche-2', name: 'Avalanche', url: 'https://www.coingecko.com/en/coins/avalanche', price: 0 },
+        { id: 'filecoin', name: 'Filecoin', url: 'https://www.coingecko.com/en/coins/filecoin', price: 0 },
+        { id: 'bitcoin-cash', name: 'Bitcoin Cash', url: 'https://www.coingecko.com/en/coins/bitcoin-cash', price: 0 },
+        { id: 'binancecoin', name: 'BNB', url: 'https://www.coingecko.com/en/coins/bnb', price: 0 },
+        { id: 'dogecoin', name: 'Dogecoin', url: 'https://www.coingecko.com/en/coins/dogecoin', price: 0 },
+        { id: 'ripple', name: 'XRP', url: 'https://www.coingecko.com/en/coins/ripple', price: 0 },
+        { id: 'cardano', name: 'Cardano', url: 'https://www.coingecko.com/en/coins/cardano', price: 0 },
+        { id: 'polkadot', name: 'Polkadot', url: 'https://www.coingecko.com/en/coins/polkadot', price: 0 },
+        { id: 'chainlink', name: 'Chainlink', url: 'https://www.coingecko.com/en/coins/chainlink', price: 0 },
+        { id: 'stellar', name: 'Stellar', url: 'https://www.coingecko.com/en/coins/stellar', price: 0 },
       ],
     };
   },
@@ -30,7 +35,7 @@ interface CryptoResponse {
   methods: {
     async fetchCryptoRates() {
       try {
-        const response = await axios.get<CryptoResponse>('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin,tether,avalanche-2,filecoin,bitcoin-cash,binancecoin,dogecoin&vs_currencies=usd');
+        const response = await axios.get<CryptoResponse>('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin,tether,avalanche-2,filecoin,bitcoin-cash,binancecoin,dogecoin,ripple,cardano,polkadot,chainlink,stellar&vs_currencies=usd');
         this.cryptos.forEach((crypto: {id: string; name: string; url: string; price: number; }) => {
           const cryptoData = response.data[crypto.id];
           if (cryptoData && cryptoData.usd) {
