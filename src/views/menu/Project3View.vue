@@ -2,6 +2,7 @@
 import {Options, Vue} from 'vue-class-component';
 import {openGraphMixin} from "@/assets/ogimage/openGraphMixin";
 import CurrentDate from "@/components/util/CurrentDate.vue";
+import CryptosCreep from "@/components/other/CryptosCreep.vue";
 
 @Options({
   mixins: [openGraphMixin],
@@ -27,7 +28,7 @@ import CurrentDate from "@/components/util/CurrentDate.vue";
       this.cripView = !this.cripView;
     },
   },
-  components: {CurrentDate},
+  components: {CryptosCreep, CurrentDate},
 })
 export default class Project3 extends Vue {
 };
@@ -43,6 +44,7 @@ export default class Project3 extends Vue {
         CoinGecko
       </a>
     </h1>
+    <CryptosCreep table-view="table-view"></CryptosCreep>
 <!--    <NBURatesCreepJS class="creep" :crip-view="cripView" :speed="speed"></NBURatesCreepJS>-->
   </div>
 </template>
