@@ -14,13 +14,13 @@ import {openGraphMixin} from "@/assets/ogimage/openGraphMixin";
   },
   mounted() {
     const mainTitle = 'About Cryptocurrencies';
-    // const title = 'About Cryptocurrencies';
-    // const metaDescription = 'Cryptocurrencies powered by CoinGecko';
-    // const description = 'Cryptocurrencies powered by CoinGecko';
-    // const imageUrl = 'https://currencies-zeta.vercel.app/assets/ogimage/bmp/about.jpg';
-    // const url = 'https://currencies-zeta.vercel.app/about';
+    const title = 'About Cryptocurrencies';
+    const metaDescription = 'Cryptocurrencies powered by CoinGecko';
+    const description = 'Cryptocurrencies powered by CoinGecko';
+    const imageUrl = 'https://cryptocurrencies-gold.vercel.app/assets/ogimage/bmp/about.jpg';
+    const url = 'https://cryptocurrencies-gold.vercel.app/about';
 
-    // this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
+    this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
     this.setPageTitle(mainTitle);
   },
   methods: {changeView() {this.tableView = !this.tableView;}},
