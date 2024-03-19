@@ -1,0 +1,53 @@
+{
+  "locale": {
+    "en": "English",
+    "uk": "Ukrainian",
+    "es": "Spanish"
+  },
+  "header": {
+    "prg01": "Cryptos Newest",
+    "prg02": "Cryptos 3D",
+    "prg03": "Cryptos v.2.0",
+    "prg04": "Cryptos Old",
+    "about": "About"
+  },
+  "footer": {
+    "text1": "Designed By ",
+    "text2": "Zorger",
+    "text3": ".",
+    "text4": "All rights reserved"
+  },
+  "title": "Cryptocurrencies",
+  "h1": "Powered by",
+  "name": "Name",
+  "price": "Price",
+  "uah": "uah",
+  "usd": "usd",
+  "project1": {
+    "name": "Cryptos Newest",
+    "disc": "Description"
+  },
+  "project2": {
+    "name": "Cryptos 3D",
+    "disc": "Description"
+  },
+  "project3": {
+    "name": "Cryptos v.2.0",
+    "disc": "Description"
+  },
+  "project4": {
+    "name": "Cryptos Old",
+    "disc": "Description"
+  },
+  "about": {
+    "title": "Cryptocurrency courses",
+    "more01": "More information...",
+    "more02": "This web application takes real cryptocurrency rates powered by CoinGecko.",
+    "more03": "Sorts and displays them to the user in different views: list, table or creeping line.",
+    "more04": "There are a LOT of interesting things here! \uD83D\uDE09\uD83E\uDD13",
+    "more05": "Welcome! \uD83E\uDD29\uD83D\uDE0E",
+    "technologies": "Technologies",
+    "name": "Name",
+    "version": "Version"
+  }
+}

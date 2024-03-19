@@ -1,0 +1,53 @@
+{
+  "locale": {
+    "en": "Inglés",
+    "uk": "Ukraniano",
+    "es": "Español"
+  },
+  "header": {
+    "prg01": "Criptos más nuevo",
+    "prg02": "Criptos 3D",
+    "prg03": "Criptos v.2.0",
+    "prg04": "Criptos antiguos",
+    "about": "Sobre"
+  },
+  "footer": {
+    "text1": "Diseñado por ",
+    "text2": "Zorger",
+    "text3": ".",
+    "text4": "Todos los derechos reservados"
+  },
+  "title": "Criptomonedas",
+  "h1": "Impulsadas por",
+  "name": "Nombre",
+  "price": "Precio",
+  "uah": "uah",
+  "usd": "usd",
+  "project1": {
+    "name": "Criptos más nuevo",
+    "disc": "Descripción"
+  },
+  "project2": {
+    "name": "Criptos 3D",
+    "disc": "Descripción"
+  },
+  "project3": {
+    "name": "Criptos v.2.0",
+    "disc": "Descripción"
+  },
+  "project4": {
+    "name": "Criptos antiguos",
+    "disc": "Descripción"
+  },
+  "about": {
+    "title": "Cursos de criptomonedas",
+    "more01": "Más información...",
+    "more02": "Esta aplicación web toma tasas de criptomonedas reales impulsadas por CoinGecko.",
+    "more03": "Los ordena y los muestra al usuario en diferentes vistas: lista, tabla o línea progresiva.",
+    "more04": "¡Hay MUCHAS cosas interesantes aquí! \uD83D\uDE09\uD83E\uDD13",
+    "more05": "¡Bienvenido! \uD83E\uDD29\uD83D\uDE0E",
+    "technologies": "Tecnologías",
+    "name": "Nombre",
+    "version": "Versión"
+  }
+}
