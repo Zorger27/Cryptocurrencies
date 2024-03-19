@@ -2,6 +2,11 @@
 import {Options, Vue} from "vue-class-component";
 import axios from "axios";
 
+interface CryptoResponse {
+  [id: string]: {
+    usd: number;
+  };
+}
 @Options({
   data() {
     return {
@@ -23,22 +28,19 @@ import axios from "axios";
     this.fetchCryptoRates();
   },
   methods: {
-    fetchCryptoRates() {
-      // Получаем данные о курсах криптовалют через API CoinGecko
-      axios
-        .get(
-          'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin,tether,avalanche-2,filecoin,bitcoin-cash,binancecoin,dogecoin&vs_currencies=usd'
-        )
-        .then((response) => {
-          // Обновляем курсы криптовалют в нашем компоненте
-          this.cryptos.forEach((crypto: { price: number; id: string | number; }) => {
-            crypto.price = response.data[crypto.id]["usd"];
-          });
-        })
-        .catch((error) => {
-          console.error(error);
+    async fetchCryptoRates() {
+      try {
+        const response = await axios.get<CryptoResponse>('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin,tether,avalanche-2,filecoin,bitcoin-cash,binancecoin,dogecoin&vs_currencies=usd');
+        this.cryptos.forEach((crypto: {id: string; name: string; url: string; price: number; }) => {
+          const cryptoData = response.data[crypto.id];
+          if (cryptoData && cryptoData.usd) {
+            crypto.price = cryptoData.usd;
+          }
         });
-    },
+      } catch (error) {
+        console.error(error);
+      }
+    }
   },
   props: {
     tableView: {
