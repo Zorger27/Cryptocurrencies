@@ -2,6 +2,8 @@
 import {Options, Vue} from 'vue-class-component';
 import {openGraphMixin} from "@/assets/ogimage/openGraphMixin";
 import CurrentDate from "@/components/util/CurrentDate.vue";
+import CryptosCreep from "@/components/other/CryptosCreep.vue";
+import Cryptocurrencies from "@/components/other/Cryptocurrencies.vue";
 
 @Options({
   mixins: [openGraphMixin],
@@ -35,7 +37,7 @@ import CurrentDate from "@/components/util/CurrentDate.vue";
       this.cripView3d = !this.cripView3d;
     },
   },
-  components: {CurrentDate},
+  components: {Cryptocurrencies, CryptosCreep, CurrentDate},
 })
 export default class Project1 extends Vue {
 };
@@ -49,8 +51,12 @@ export default class Project1 extends Vue {
     <h1 class="bank"> {{ $t('h1') }}
       <a href="https://www.coingecko.com" title="In more detail..." target="_blank">
         CoinGecko
-      </a>
+      </a> <i @click="changeView"><span :class="['fa', tableView ? 'fa-list' : 'fa-th']"></span></i>
+      <i @click="changeCrip"> <span :class="['fa', cripView ? 'fa-check-circle' : 'fa-sack-dollar']"></span></i> <input
+        v-show="cripView" type="range" v-model.number="speed" min="0" max="6" step="0.2" />
     </h1>
+    <CryptosCreep class="creep" :crip-view="cripView" :speed="speed"></CryptosCreep>
+    <Cryptocurrencies :table-view="tableView"></Cryptocurrencies>
 
     <!--    <h1 class="bank">-->
 <!--      <a href="https://bank.gov.ua/ua/open-data/api-dev" title="In more detail..." target="_blank">-->
@@ -63,8 +69,6 @@ export default class Project1 extends Vue {
 <!--    <div class="creep3d">-->
 <!--      <NBURatesCreep3d :crip-view3d="cripView3d"></NBURatesCreep3d>-->
 <!--    </div>-->
-<!--    <NBURatesCreepJS class="creep" :crip-view="cripView" :speed="speed"></NBURatesCreepJS>-->
-<!--    <NBURates :table-view="tableView"></NBURates>-->
   </div>
 </template>
 

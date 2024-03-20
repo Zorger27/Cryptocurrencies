@@ -70,6 +70,7 @@ interface CryptoResponse {
           price: response.data[id].usd,
         }));
 
+        // this.cryptos = cryptoArray;
         // Умножаем данные, создавая новый массив из 8 копий каждого элемента
         this.cryptos = [];
         for (let i = 0; i < 8; i++) {
@@ -190,7 +191,7 @@ export default class CryptosCreep extends Vue {}
           margin-left: 5px;
           color: black;
           font-weight: bold;
-          text-shadow: 1px 1px 2px darkmagenta;
+          text-shadow: 1px 1px 2px green;
         }
         .usd {
           color: black;
