@@ -63,21 +63,20 @@ interface CryptoResponse {
       try {
         const response = await axios.get<CryptoResponse>('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin,tether,avalanche-2,filecoin,bitcoin-cash,binancecoin,dogecoin,ripple,cardano,polkadot,chainlink,stellar&vs_currencies=usd');
 
-        // Создаем копии данных из ответа для каждой криптовалюты и повторяем 8 раз
-        this.cryptos = Array(8)
-          .fill(response.data)
-          .flat()
-          .map((crypto: { [key: string]: { usd: number } }) => {
-            return Object.keys(crypto).map(id => {
-              const { usd } = crypto[id];
-              return {
-                id,
-                price: usd,
-                name: this.cryptos.find((c: { id: string; name: string }) => c.id === id)?.name || '',
-              };
-            });
-          })
-          .flat();
+        // Преобразуем ответ от API в массив данных о криптовалютах
+        const cryptoArray = Object.keys(response.data).map((id: string) => ({
+          id,
+          name: this.cryptos.find((c: { id: string; }) => c.id === id)?.name || '',
+          price: response.data[id].usd,
+        }));
+
+        // Умножаем данные, создавая новый массив из 8 копий каждого элемента
+        this.cryptos = [];
+        for (let i = 0; i < 8; i++) {
+          this.cryptos = this.cryptos.concat(cryptoArray.map((crypto: { id: string; name: string; price: number }) => ({
+            ...crypto,
+          })));
+        }
 
         await this.$nextTick(this.calculateWidths);
         this.setupAnimationListener();
