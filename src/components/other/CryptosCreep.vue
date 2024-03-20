@@ -11,20 +11,20 @@ interface CryptoResponse {
   data() {
     return {
       cryptos: [
-        { id: 'bitcoin', name: 'Bitcoin', url: 'https://www.coingecko.com/en/coins/bitcoin', price: 0 },
-        { id: 'ethereum', name: 'Ethereum', url: 'https://www.coingecko.com/en/coins/ethereum', price: 0 },
-        { id: 'litecoin', name: 'Litecoin', url: 'https://www.coingecko.com/en/coins/litecoin', price: 0 },
-        { id: 'tether', name: 'Tether', url: 'https://www.coingecko.com/en/coins/tether', price: 0 },
-        { id: 'avalanche-2', name: 'Avalanche', url: 'https://www.coingecko.com/en/coins/avalanche', price: 0 },
-        { id: 'filecoin', name: 'Filecoin', url: 'https://www.coingecko.com/en/coins/filecoin', price: 0 },
-        { id: 'bitcoin-cash', name: 'Bitcoin Cash', url: 'https://www.coingecko.com/en/coins/bitcoin-cash', price: 0 },
-        { id: 'binancecoin', name: 'BNB', url: 'https://www.coingecko.com/en/coins/bnb', price: 0 },
-        { id: 'dogecoin', name: 'Dogecoin', url: 'https://www.coingecko.com/en/coins/dogecoin', price: 0 },
-        { id: 'ripple', name: 'XRP', url: 'https://www.coingecko.com/en/coins/ripple', price: 0 },
-        { id: 'cardano', name: 'Cardano', url: 'https://www.coingecko.com/en/coins/cardano', price: 0 },
-        { id: 'polkadot', name: 'Polkadot', url: 'https://www.coingecko.com/en/coins/polkadot', price: 0 },
-        { id: 'chainlink', name: 'Chainlink', url: 'https://www.coingecko.com/en/coins/chainlink', price: 0 },
-        { id: 'stellar', name: 'Stellar', url: 'https://www.coingecko.com/en/coins/stellar', price: 0 },
+        { id: 'bitcoin', name: 'Bitcoin', price: 0 },
+        { id: 'ethereum', name: 'Ethereum', price: 0 },
+        { id: 'litecoin', name: 'Litecoin', price: 0 },
+        { id: 'tether', name: 'Tether', price: 0 },
+        { id: 'avalanche-2', name: 'Avalanche', price: 0 },
+        { id: 'filecoin', name: 'Filecoin', price: 0 },
+        { id: 'bitcoin-cash', name: 'Bitcoin Cash', price: 0 },
+        { id: 'binancecoin', name: 'BNB', price: 0 },
+        { id: 'dogecoin', name: 'Dogecoin', price: 0 },
+        { id: 'ripple', name: 'XRP', price: 0 },
+        { id: 'cardano', name: 'Cardano', price: 0 },
+        { id: 'polkadot', name: 'Polkadot', price: 0 },
+        { id: 'chainlink', name: 'Chainlink', price: 0 },
+        { id: 'stellar', name: 'Stellar', price: 0 },
       ],
       contentWidth: 0,
       marqueeWidth: 0,
@@ -62,15 +62,22 @@ interface CryptoResponse {
     async fetchCryptoRates() {
       try {
         const response = await axios.get<CryptoResponse>('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin,tether,avalanche-2,filecoin,bitcoin-cash,binancecoin,dogecoin,ripple,cardano,polkadot,chainlink,stellar&vs_currencies=usd');
-        this.cryptos = Object.entries(response.data).map(([id, { usd }]: [string, { usd: number }]) => {
-          const cryptoInfo = this.cryptos.find((item: { id: string; name: string; url: string; price: number; }) => item.id === id);
-          return {
-            id: id,
-            price: usd,
-            name: cryptoInfo ? cryptoInfo.name : '',
-            url: cryptoInfo ? cryptoInfo.url : '',
-          };
-        });
+
+        // Создаем копии данных из ответа для каждой криптовалюты и повторяем 8 раз
+        this.cryptos = Array(8)
+          .fill(response.data)
+          .flat()
+          .map((crypto: { [key: string]: { usd: number } }) => {
+            return Object.keys(crypto).map(id => {
+              const { usd } = crypto[id];
+              return {
+                id,
+                price: usd,
+                name: this.cryptos.find((c: { id: string; name: string }) => c.id === id)?.name || '',
+              };
+            });
+          })
+          .flat();
 
         await this.$nextTick(this.calculateWidths);
         this.setupAnimationListener();
@@ -184,7 +191,7 @@ export default class CryptosCreep extends Vue {}
           margin-left: 5px;
           color: black;
           font-weight: bold;
-          text-shadow: 1px 1px 2px dodgerblue;
+          text-shadow: 1px 1px 2px darkmagenta;
         }
         .usd {
           color: black;
