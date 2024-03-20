@@ -26,32 +26,111 @@ interface CryptoResponse {
         { id: 'chainlink', name: 'Chainlink', url: 'https://www.coingecko.com/en/coins/chainlink', price: 0 },
         { id: 'stellar', name: 'Stellar', url: 'https://www.coingecko.com/en/coins/stellar', price: 0 },
       ],
+      contentWidth: 0,
+      marqueeWidth: 0,
+      animationOffset: 0,
+      animationInterval: null as any, // 'null as any' для инициализации с поддержкой TypeScript
     };
   },
-  created() {
-    // Получаем текущие курсы криптовалют при создании компонента
-    this.fetchCryptoRates();
+  mounted() {
+    this.fetchCryptoRates().then(() => {
+      this.$nextTick(() => {
+        const content = this.$refs.marquee.querySelector('.content');
+        if (content) {
+          // Дублируем содержимое
+          const contentHTML = content.innerHTML;
+          content.innerHTML += contentHTML;
+          // Пересчитываем ширину после дублирования
+          this.calculateWidths();
+        }
+      });
+    });
+  },
+  beforeUnmount() {
+    if (this.animationInterval) {
+      clearInterval(this.animationInterval);
+    }
+    window.removeEventListener("resize", this.calculateWidths);
+  },
+  watch: {
+    speed(newSpeed: number) {
+      // Обрабатываем изменение скорости
+      this.updateAnimationSpeed(newSpeed);
+    }
   },
   methods: {
     async fetchCryptoRates() {
       try {
         const response = await axios.get<CryptoResponse>('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin,tether,avalanche-2,filecoin,bitcoin-cash,binancecoin,dogecoin,ripple,cardano,polkadot,chainlink,stellar&vs_currencies=usd');
-        this.cryptos.forEach((crypto: {id: string; name: string; url: string; price: number; }) => {
-          const cryptoData = response.data[crypto.id];
-          if (cryptoData && cryptoData.usd) {
-            crypto.price = cryptoData.usd;
-          }
+        this.cryptos = Object.entries(response.data).map(([id, { usd }]: [string, { usd: number }]) => {
+          const cryptoInfo = this.cryptos.find((item: { id: string; name: string; url: string; price: number; }) => item.id === id);
+          return {
+            id: id,
+            price: usd,
+            name: cryptoInfo ? cryptoInfo.name : '',
+            url: cryptoInfo ? cryptoInfo.url : '',
+          };
         });
+
+        await this.$nextTick(this.calculateWidths);
+        this.setupAnimationListener();
       } catch (error) {
         console.error(error);
       }
-    }
+    },
+    calculateWidths() {
+      const marquee = this.$refs.marquee as HTMLElement | null;
+      const content = marquee?.querySelector(".content") as HTMLElement | null;
+      if (marquee && content) {
+        this.marqueeWidth = marquee.offsetWidth;
+        this.contentWidth = content.offsetWidth;
+        // Устанавливаем начальное смещение таким образом, чтобы вторая копия была частично видима в конце первой копии
+        this.animationOffset = this.contentWidth;
+      }
+    },
+    setupAnimationListener() {
+      window.addEventListener("resize", this.calculateWidths);
+      this.$nextTick(this.calculateWidths);
+      this.animateMarquee();
+    },
+    animateMarquee() {
+      if (this.animationInterval) {
+        clearInterval(this.animationInterval);
+      }
+      this.animationInterval = setInterval(() => {
+        // Проверяем, проскроллена ли полностью первая копия содержимого
+        if (this.animationOffset >= this.contentWidth) {
+          // Если да, сбрасываем смещение на начало
+          this.animationOffset = 0;
+        } else {
+          // Иначе продолжаем анимацию
+          this.animationOffset += this.speed;
+        }
+
+        const content = this.$refs.marquee?.querySelector(".content");
+        if (content) {
+          content.style.transform = `translateX(${-this.animationOffset}px)`;
+        }
+      }, 10);
+    },
+    updateAnimationSpeed(newSpeed: number) {
+      // Проверяем, что speed действительно изменился, прежде чем обновлять анимацию
+      if (this.speed !== newSpeed) {
+        this.speed = newSpeed; // Обновляем скорость в состоянии компонента
+        clearInterval(this.animationInterval); // Очищаем текущий интервал
+        this.animateMarquee(); // Запускаем анимацию с новой скоростью
+      }
+    },
   },
   props: {
-    tableView: {
+    cripView: {
       type: Boolean,
       required: true
-    }
+    },
+    speed: {
+      type: Number,
+      default: 1,
+    },
   },
   components: {},
 })
@@ -59,93 +138,86 @@ export default class CryptosCreep extends Vue {}
 </script>
 
 <template>
-  <div v-if="tableView" class="table">
-    <table>
-      <thead>
-      <tr>
-        <th>№</th>
-        <th>{{ $t('name') }}</th>
-        <th>{{ $t('price') }}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(crypto, index) in cryptos" :key="crypto.id">
-        <td class="nomer">{{ index + 1 }}</td>
-        <td class="name"><a :href="crypto.url" title="In more detail..." target="_blank">{{ crypto.name }}</a>
-        </td>
-        <td class="price">{{ crypto.price }} <span style="color: black">{{ $t('usd') }}</span></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <div v-else class="container">
-    <div v-for="(crypto) in cryptos" :key="crypto.id" class="crypto">
-      <a :href="crypto.url" title="In more detail..." target="_blank">
-        <span class="name">{{ crypto.name }}</span><span class="eql">=</span><span class="price">{{ crypto.price }}</span><span class="usd">{{ $t('usd') }}</span>
-      </a>
+  <div class="inner" v-show="cripView">
+    <div ref="marquee" class="marquee">
+      <div class="content">
+        <div v-for="(crypto) in cryptos" :key="crypto.id" class="crypto">
+          <span class="name">{{ crypto.name }}</span><span class="eql">=</span><span class="price">{{ crypto.price }}</span><span class="usd">{{ $t('usd') }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.container {
+.inner {
   margin-bottom: 1rem;
-  .crypto {
-    display: inline-flex;
-    font-size: 2rem;
-    padding: 1rem;
-    margin: 0.5rem;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
-    background-color: #f1f1f1;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
-    transition: border-color .2s ease-in-out, background-color .2s, box-shadow .2s;
-    a {text-decoration: none;}
-
-    .name {
-      margin-right: 5px;
-      color: deepskyblue;
+  overflow: hidden;
+  position: relative;
+  .marquee {
+    overflow: hidden;
+    position: relative;
+    .content {
+      white-space: nowrap;
+      display: inline-block;
+      .crypto {
+        display: inline-flex;
+        font-size: 2rem;
+        font-style: italic;
+        padding: 0.5rem;
+        margin: 0.5rem 1rem;
+        //border: 1px solid lightgrey;
+        //border-radius: 5px;
+        //background-color: #f1f1f1;
+        .name {
+          margin-right: 5px;
+          color: black;
+          //text-shadow: 4px 4px 8px dodgerblue;
+        }
+        .eql {
+          color: goldenrod;
+          font-weight: bold;
+          //text-shadow: 2px 2px 4px goldenrod;
+        }
+        .price {
+          margin-right: 5px;
+          margin-left: 5px;
+          color: black;
+          font-weight: bold;
+          text-shadow: 1px 1px 2px dodgerblue;
+        }
+        .usd {
+          color: black;
+          margin-left: 3px;
+          //text-shadow: 2px 2px 4px green;
+        }
+      }
     }
-    .eql, .usd {
-      color: rebeccapurple;
-    }
-    .price {
-      margin-right: 5px;
-      margin-left: 5px;
-      color: deeppink;
-    }
-  }
-
-  .crypto:hover {
-    border-color: lightskyblue;
-    box-shadow: 0 4px 8px lightsteelblue;
   }
 }
 
-
 @media(max-width: 1020px) {
-  .crypto {
-    font-size: 1.6rem;
-    padding: 0.8rem;
-    margin: 0.5rem;
+  .inner {
+    .marquee {
+      .content {
+        .crypto {
+          font-size: 1.6rem;
+          padding: 0.4rem;
+        }
+      }
+    }
   }
 }
 @media (max-width: 768px) {
-  .table {
-    margin-bottom: 1rem;
-    .name {
-      width: 9rem;
-    }
-    .price {
-      width: fit-content;
-    }
-  }
-  .container {
+  .inner {
     margin-bottom: 0.5rem;
-    .crypto {
-      font-size: 1.5rem;
-      padding: 0.6rem;
-      margin: 0.4rem;
+    .marquee {
+      .content {
+        .crypto {
+          font-size: 1.5rem;
+          padding: 0.3rem;
+        }
+      }
     }
   }
 }
