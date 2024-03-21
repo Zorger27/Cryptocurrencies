@@ -16,6 +16,22 @@ export default {
   setup() {
     const marquee = ref(null);
     let scene, camera, renderer, initialCryptos = [];
+    let cryptosName = [
+      { id: 'bitcoin', name: 'Bitcoin' },
+      { id: 'ethereum', name: 'Ethereum' },
+      { id: 'litecoin', name: 'Litecoin' },
+      { id: 'tether', name: 'Tether' },
+      { id: 'avalanche-2', name: 'Avalanche' },
+      { id: 'filecoin', name: 'Filecoin' },
+      { id: 'bitcoin-cash', name: 'Bitcoin Cash' },
+      { id: 'binancecoin', name: 'BNB' },
+      { id: 'dogecoin', name: 'Dogecoin' },
+      { id: 'ripple', name: 'XRP' },
+      { id: 'cardano', name: 'Cardano' },
+      { id: 'polkadot', name: 'Polkadot' },
+      { id: 'chainlink', name: 'Chainlink' },
+      { id: 'stellar', name: 'Stellar' },
+    ];
 
     const fetchExchangeRates = async () => {
       try {
@@ -24,7 +40,7 @@ export default {
         // Преобразуем ответ от API в массив данных о криптовалютах
         const selectedCryptos = Object.keys(response.data).map((id) => ({
           id,
-          name: initialCryptos.find((c) => c.id === id)?.name || '',
+          name: cryptosName.find((c) => c.id === id)?.name || '',
           price: response.data[id].usd,
         }));
 
@@ -39,7 +55,7 @@ export default {
     let nextPositionX = 0; // Стартовая позиция для первого объекта
 
     const createCryptosObject = (crypto) => {
-      const cryptosName = `${crypto.id} = ${crypto.price} usd`;
+      const cryptosName = `${crypto.name} = ${crypto.price} usd`;
       const loader = new FontLoader();
 
       loader.load('https://threejs.org/examples/fonts/droid/droid_serif_regular.typeface.json', (font) => {
