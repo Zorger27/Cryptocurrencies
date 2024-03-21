@@ -2,6 +2,7 @@
 import {Options, Vue} from 'vue-class-component';
 import {openGraphMixin} from "@/assets/ogimage/openGraphMixin";
 import CurrentDate from "@/components/util/CurrentDate.vue";
+import CryptosCreep3d from "@/components/other/CryptosCreep3d.vue";
 
 @Options({
   mixins: [openGraphMixin],
@@ -26,7 +27,7 @@ import CurrentDate from "@/components/util/CurrentDate.vue";
       this.cripView3d = !this.cripView3d;
     },
   },
-  components: {CurrentDate},
+  components: {CryptosCreep3d, CurrentDate},
 })
 export default class Project2 extends Vue {
 };
@@ -40,11 +41,11 @@ export default class Project2 extends Vue {
     <h1 class="bank"> {{ $t('h1') }}
       <a href="https://www.coingecko.com" title="In more detail..." target="_blank">
         CoinGecko
-      </a>
+      </a> <i @click="changeCrip3d"><span :class="['fa', cripView3d ? 'fa-gift' : 'fa-yin-yang']"></span></i>
     </h1>
-<!--    <div class="creep3d">-->
-<!--      <NBURatesCreep3d :crip-view3d="cripView3d"></NBURatesCreep3d>-->
-<!--    </div>-->
+    <div class="creep3d">
+      <CryptosCreep3d :crip-view3d="cripView3d"></CryptosCreep3d>
+    </div>
   </div>
 </template>
 
