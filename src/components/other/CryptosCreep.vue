@@ -29,8 +29,8 @@ interface CryptoResponse {
       contentWidth: 0,
       marqueeWidth: 0,
       animationOffset: 0,
-      isAnimating: false, // Состояние анимации
-      animationInterval: null as any, // 'null as any' для инициализации с поддержкой TypeScript
+      isAnimating: false,
+      animationFrameId: 0, // Идентификатор для requestAnimationFrame
     };
   },
   mounted() {
@@ -50,11 +50,11 @@ interface CryptoResponse {
     window.addEventListener('scroll', this.handleScroll);
   },
   beforeUnmount() {
-    if (this.animationInterval) {
-      clearInterval(this.animationInterval);
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
     }
-    window.removeEventListener("resize", this.calculateWidths);
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.calculateWidths);
   },
   watch: {
     speed(newSpeed: number) {
@@ -101,13 +101,9 @@ interface CryptoResponse {
     },
     setupAnimationListener() {
       window.addEventListener("resize", this.calculateWidths);
-      this.$nextTick(this.calculateWidths);
       this.animateMarquee();
     },
     animateMarquee() {
-        if (this.animationInterval) {
-          clearInterval(this.animationInterval);
-        }
       const step = () => {
         // Проверяем, проскроллена ли полностью первая копия содержимого
         if (this.animationOffset >= this.contentWidth) {
@@ -123,40 +119,37 @@ interface CryptoResponse {
           content.style.transform = `translateX(${-this.animationOffset}px)`;
         }
         if (this.isAnimating) {
-          requestAnimationFrame(step);
+          this.animationFrameId = requestAnimationFrame(step);
         }
       };
-
-      if (!this.isAnimating) {
-        this.isAnimating = true;
-        requestAnimationFrame(step);
-      }
+      this.isAnimating = true;
+      requestAnimationFrame(step);
     },
     pauseAnimation() {
       // Приостановка анимации
       this.isAnimating = false;
-      clearInterval(this.animationInterval);
+      if (this.animationFrameId) {
+        cancelAnimationFrame(this.animationFrameId);
+      }
     },
     handleScroll() {
       const marqueeRect = this.$refs.marquee.getBoundingClientRect();
       if (marqueeRect.top < window.innerHeight && marqueeRect.bottom > 0) {
-        // Если элемент в поле зрения, и анимация не идет, запускаем анимацию
         if (!this.isAnimating) {
           this.animateMarquee();
         }
       } else {
-        // Если элемент не в поле зрения, останавливаем анимацию
         if (this.isAnimating) {
           this.pauseAnimation();
         }
       }
     },
     updateAnimationSpeed(newSpeed: number) {
-      // Проверяем, что speed действительно изменился, прежде чем обновлять анимацию
       if (this.speed !== newSpeed) {
         this.speed = newSpeed; // Обновляем скорость в состоянии компонента
-        clearInterval(this.animationInterval); // Очищаем текущий интервал
-        this.animateMarquee(); // Запускаем анимацию с новой скоростью
+        // Перезапускаем анимацию с новой скоростью
+        this.pauseAnimation();
+        this.animateMarquee();
       }
     },
   },
