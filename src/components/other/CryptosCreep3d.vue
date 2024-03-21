@@ -39,14 +39,17 @@ export default {
 
         // Преобразуем ответ от API в массив данных о криптовалютах
         const selectedCryptos = Object.keys(response.data).map((id) => ({
-          id,
-          name: cryptosName.find((c) => c.id === id)?.name || '',
-          price: response.data[id].usd,
+          // Для каждой криптовалюты формируем объект с полями id, name и price
+          id, // Идентификатор криптовалюты (например, "bitcoin")
+          name: cryptosName.find((c) => c.id === id)?.name || '', // Имя криптовалюты
+          price: response.data[id].usd, // Цена криптовалюты в долларах США
         }));
 
+        // Перебираем полученные данные о криптовалютах и создаем объекты для отображения в 3D
         selectedCryptos.forEach((crypto) => {
-          createCryptosObject(crypto);
+          createCryptosObject(crypto); // Вызываем функцию createCryptosObject для создания объекта криптовалюты
         });
+
       } catch (error) {
         console.error(error);
       }
