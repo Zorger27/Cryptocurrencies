@@ -48,6 +48,11 @@ interface CryptoResponse {
     });
     // Следим за событием прокрутки, чтобы приостанавливать и возобновлять анимацию
     window.addEventListener('scroll', this.handleScroll);
+
+    // document.addEventListener('touchstart', this.handleDocumentTouch, { passive: false });
+    // document.addEventListener('touchmove', this.handleDocumentTouch, { passive: false });
+    // document.addEventListener('touchend', this.handleDocumentTouch, { passive: false });
+    // document.addEventListener('touchcancel', this.handleDocumentTouch, { passive: false });
   },
   beforeUnmount() {
     if (this.animationFrameId) {
@@ -152,6 +157,14 @@ interface CryptoResponse {
         this.animateMarquee();
       }
     },
+    // handleDocumentTouch(event: TouchEvent) {
+    //   // Если событие касания произошло внутри вашего элемента бегущей строки, предотвращаем его воздействие
+    //   const marqueeElement = this.$refs.marquee as HTMLElement;
+    //   if (marqueeElement && marqueeElement.contains(event.target as Node)) {
+    //     // event.stopPropagation();
+    //     event.preventDefault();
+    //   }
+    // },
   },
   props: {
     cripView: {
