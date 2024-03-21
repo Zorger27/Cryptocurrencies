@@ -62,7 +62,7 @@ export default class Project2 extends Vue {
     a:hover {color: cornflowerblue;}
   }
   .creep3d {
-    max-height: 30vh;
+    max-height: 20vh;
     max-width: 100%;
     position: relative;
     overflow: hidden;

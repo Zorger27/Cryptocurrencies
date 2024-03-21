@@ -61,22 +61,28 @@ export default {
       loader.load('https://threejs.org/examples/fonts/droid/droid_serif_regular.typeface.json', (font) => {
         const geometry = new TextGeometry(cryptosName, {
           font: font,
-          size: 0.1,
-          height: 0.01,
+          size: 0.2,
+          height: 0.02,
         });
 
         geometry.computeBoundingBox();
         const textWidth = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
 
         const textureLoader = new THREE.TextureLoader();
-        textureLoader.load('/assets/background/background04.webp', function (texture) {
+        textureLoader.load('/assets/background/background03.webp', function (texture) {
           const material = new THREE.MeshBasicMaterial({ map: texture });
           const cryptosObject = new THREE.Mesh(geometry, material);
 
-          // Установка начальной позиции объекта
-          cryptosObject.position.x = nextPositionX;
+          const RotationAngleY = 27; // Угол в градусах
+          const RotationAngleX = -5; // Угол в градусах
+          cryptosObject.rotation.y = THREE.MathUtils.degToRad(RotationAngleY)
+          cryptosObject.rotation.x = THREE.MathUtils.degToRad(RotationAngleX)
 
-          // Обновление позиции для следующего объекта
+
+          // Выставляем позицию с учетом предыдущего текста и добавляем "пробелы" между ними
+          cryptosObject.position.x = nextPositionX;
+          // Обновляем nextPositionX для следующего объекта, добавляем ширину текущего текста и примерное расстояние для двух "пробелов"
+          // Подберите значение 0.2 (или другое) в зависимости от желаемого расстояния между словами
           nextPositionX += textWidth + 0.2;
 
           initialCryptos.push(cryptosObject);
@@ -88,8 +94,9 @@ export default {
     const init = () => {
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      camera.position.z = 2.5;
-      renderer = new THREE.WebGLRenderer({alpha: true});
+      camera.position.z = 1.3;
+      // renderer = new THREE.WebGLRenderer({alpha: true});
+      renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       scene.add(camera);
 
@@ -126,13 +133,11 @@ export default {
         }
       });
 
-      //   // Вращение всей сцены
-      //   const sceneRotationAngle = 20; // Угол в градусах
-      //   scene.rotation.x = THREE.MathUtils.degToRad(sceneRotationAngle);
-      //
-      //   // scene.rotation.x += 0.01;
-      //
-      //   renderer.render(scene, camera);
+        // Вращение всей сцены
+        // const sceneRotationAngle = 120; // Угол в градусах
+        // scene.rotation.x = THREE.MathUtils.degToRad(sceneRotationAngle);
+
+        // scene.rotation.x += 0.01;
 
       renderer.render(scene, camera);
     };
