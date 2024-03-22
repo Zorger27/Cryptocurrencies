@@ -41,7 +41,7 @@ export default class Project2 extends Vue {
     <h1 class="bank"> {{ $t('h1') }}
       <a href="https://www.coingecko.com" title="In more detail..." target="_blank">
         CoinGecko
-      </a> <i @click="changeCrip3d"><span :class="['fa', cripView3d ? 'fa-gift' : 'fa-yin-yang']"></span></i>
+      </a><i @click="changeCrip3d"><span :class="['fa', cripView3d ? 'fa-yin-yang' : 'fa-bitcoin-sign']"></span></i>
     </h1>
     <div class="creep3d">
       <CryptosCreep3d :crip-view3d="cripView3d"></CryptosCreep3d>
