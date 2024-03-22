@@ -72,7 +72,7 @@ export default {
         const textWidth = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
 
         const textureLoader = new THREE.TextureLoader();
-        textureLoader.load('/assets/background/background03.webp', function (texture) {
+        textureLoader.load('/assets/background/background04.webp', function (texture) {
           const material = new THREE.MeshBasicMaterial({ map: texture });
           const cryptosObject = new THREE.Mesh(geometry, material);
 
@@ -98,8 +98,8 @@ export default {
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       camera.position.z = 1.3;
-      // renderer = new THREE.WebGLRenderer({alpha: true});
-      renderer = new THREE.WebGLRenderer();
+      renderer = new THREE.WebGLRenderer({alpha: true});
+      // renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       scene.add(camera);
 

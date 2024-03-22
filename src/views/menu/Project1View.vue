@@ -4,6 +4,7 @@ import {openGraphMixin} from "@/assets/ogimage/openGraphMixin";
 import CurrentDate from "@/components/util/CurrentDate.vue";
 import CryptosCreep from "@/components/other/CryptosCreep.vue";
 import Cryptocurrencies from "@/components/other/Cryptocurrencies.vue";
+import CryptosCreep3d from "@/components/other/CryptosCreep3d.vue";
 
 @Options({
   mixins: [openGraphMixin],
@@ -37,7 +38,7 @@ import Cryptocurrencies from "@/components/other/Cryptocurrencies.vue";
       this.cripView3d = !this.cripView3d;
     },
   },
-  components: {Cryptocurrencies, CryptosCreep, CurrentDate},
+  components: {CryptosCreep3d, Cryptocurrencies, CryptosCreep, CurrentDate},
 })
 export default class Project1 extends Vue {
 };
@@ -51,24 +52,16 @@ export default class Project1 extends Vue {
     <h1 class="bank"> {{ $t('h1') }}
       <a href="https://www.coingecko.com" title="In more detail..." target="_blank">
         CoinGecko
-      </a> <i @click="changeView"><span :class="['fa', tableView ? 'fa-list' : 'fa-th']"></span></i>
-      <i @click="changeCrip"> <span :class="['fa', cripView ? 'fa-check-circle' : 'fa-sack-dollar']"></span></i> <input
+      </a> <i @click="changeView"><span :class="['fa', tableView ? 'fa-list' : 'fa-th']"></span></i><i
+        @click="changeCrip3d"><span :class="['fa', cripView3d ? 'fa-gift' : 'fa-yin-yang']"></span></i> <i
+        @click="changeCrip"> <span :class="['fa', cripView ? 'fa-check-circle' : 'fa-sack-dollar']"></span></i> <input
         v-show="cripView" type="range" v-model.number="speed" min="0" max="6" step="0.2" />
     </h1>
+    <div class="creep3d">
+      <CryptosCreep3d :crip-view3d="cripView3d"></CryptosCreep3d>
+    </div>
     <CryptosCreep class="creep" :crip-view="cripView" :speed="speed"></CryptosCreep>
     <Cryptocurrencies :table-view="tableView"></Cryptocurrencies>
-
-    <!--    <h1 class="bank">-->
-<!--      <a href="https://bank.gov.ua/ua/open-data/api-dev" title="In more detail..." target="_blank">-->
-<!--        {{ $t('nbu') }}-->
-<!--      </a> <i @click="changeView"><span :class="['fa', tableView ? 'fa-list' : 'fa-th']"></span></i>-->
-<!--      <i @click="changeCrip3d"><span :class="['fa', cripView3d ? 'fa-gift' : 'fa-yin-yang']"></span></i> <i-->
-<!--      @click="changeCrip"> <span :class="['fa', cripView ? 'fa-check-circle' : 'fa-sack-dollar']"></span></i> <input-->
-<!--      v-show="cripView" type="range" v-model.number="speed" min="0" max="6" step="0.2" />-->
-<!--    </h1>-->
-<!--    <div class="creep3d">-->
-<!--      <NBURatesCreep3d :crip-view3d="cripView3d"></NBURatesCreep3d>-->
-<!--    </div>-->
   </div>
 </template>
 
@@ -86,13 +79,14 @@ export default class Project1 extends Vue {
   }
   .creep3d {
     background: transparent;
-    max-height: 30vh;
+    max-height: 20vh;
     max-width: 100%;
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: none;
   }
 
   .creep {
@@ -109,6 +103,9 @@ export default class Project1 extends Vue {
 @media (max-width: 768px) {
   .container {
     h1, .bank {font-size: 2rem;margin: 0.5rem auto;}
+    .creep3d {
+      max-height: 20vh;
+    }
   }
 }
 </style>
