@@ -193,7 +193,6 @@ export default {
 
 <style lang="scss" scoped>
 .inner {
-  //margin-bottom: 1rem;
   overflow: hidden;
   position: relative;
 
