@@ -12,8 +12,8 @@ import Cryptocurrencies from "@/components/other/Cryptocurrencies.vue";
     }
   },
   mounted() {
-    const mainTitle = 'Cryptocurrencies Old';
-    const title = 'Cryptocurrencies Old';
+    const mainTitle = 'Table / List';
+    const title = 'Table / List';
     const metaDescription = 'Cryptocurrencies powered by CoinGecko';
     const description = 'Cryptocurrencies powered by CoinGecko';
     const imageUrl = 'https://cryptocurrencies-gold.vercel.app/assets/ogimage/bmp/project4.jpg';

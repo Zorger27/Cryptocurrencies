@@ -13,8 +13,8 @@ import CryptosCreep from "@/components/other/CryptosCreep.vue";
     }
   },
   mounted() {
-    const mainTitle = 'Cryptocurrencies v.2.0';
-    const title = 'Cryptocurrencies v.2.0';
+    const mainTitle = 'Creeping line';
+    const title = 'Creeping line';
     const metaDescription = 'Cryptocurrencies powered by CoinGecko';
     const description = 'Cryptocurrencies powered by CoinGecko';
     const imageUrl = 'https://cryptocurrencies-gold.vercel.app/assets/ogimage/bmp/project3.jpg';

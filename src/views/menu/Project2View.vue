@@ -12,8 +12,8 @@ import CryptosCreep3d from "@/components/other/CryptosCreep3d.vue";
     }
   },
   mounted() {
-    const mainTitle = 'Cryptocurrencies 3D';
-    const title = 'Cryptocurrencies 3D';
+    const mainTitle = 'Creeping line 3D';
+    const title = 'Creeping line 3D';
     const metaDescription = 'Cryptocurrencies powered by CoinGecko';
     const description = 'Cryptocurrencies powered by CoinGecko';
     const imageUrl = 'https://cryptocurrencies-gold.vercel.app/assets/ogimage/bmp/project2.jpg';
