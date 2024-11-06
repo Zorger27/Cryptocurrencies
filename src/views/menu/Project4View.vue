@@ -41,7 +41,7 @@ export default class Project4 extends Vue {
     <h1 class="bank"> {{ $t('h1') }}
       <a href="https://www.coingecko.com" title="In more detail..." target="_blank">
         CoinGecko
-      </a> <i @click="changeView"><span :class="['fa', tableView ? 'fa-list' : 'fa-th']"></span></i>
+      </a> <i :title="[tableView ? 'Start viewing in List view' : 'Start viewing in Table view']" @click="changeView"><span :class="['fa', tableView ? 'fa-list' : 'fa-th']"></span></i>
     </h1>
     <Cryptocurrencies :table-view="tableView"></Cryptocurrencies>
   </div>
