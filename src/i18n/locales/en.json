@@ -5,10 +5,10 @@
     "es": "Spanish"
   },
   "header": {
-    "prg01": "Cryptos Newest",
-    "prg02": "Cryptos 3D",
-    "prg03": "Cryptos v.2.0",
-    "prg04": "Cryptos Old",
+    "prg01": "Three in One",
+    "prg02": "Creeping line 3D",
+    "prg03": "Creeping line",
+    "prg04": "Table / List",
     "about": "About"
   },
   "footer": {
@@ -24,19 +24,19 @@
   "uah": "uah",
   "usd": "usd",
   "project1": {
-    "name": "Cryptocurrencies Newest",
+    "name": "Three in One",
     "disc": "Description"
   },
   "project2": {
-    "name": "Cryptocurrencies 3D",
+    "name": "Creeping line 3D",
     "disc": "Description"
   },
   "project3": {
-    "name": "Cryptocurrencies v.2.0",
+    "name": "Creeping line",
     "disc": "Description"
   },
   "project4": {
-    "name": "Cryptocurrencies Old",
+    "name": "Table / List",
     "disc": "Description"
   },
   "about": {
