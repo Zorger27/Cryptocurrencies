@@ -17,8 +17,8 @@ import CryptosCreep3d from "@/components/other/CryptosCreep3d.vue";
     }
   },
   mounted() {
-    const mainTitle = 'Three in One';
-    const title = 'Three in One';
+    const mainTitle = 'Three-in-One';
+    const title = 'Three-in-One';
     const metaDescription = 'Cryptocurrencies powered by CoinGecko';
     const description = 'Cryptocurrencies powered by CoinGecko';
     const imageUrl = 'https://cryptocurrencies-gold.vercel.app/assets/ogimage/bmp/project1.jpg';
