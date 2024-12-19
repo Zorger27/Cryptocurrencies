@@ -17,7 +17,7 @@
 ✅ Vue.js + Vuex — for interface and state management.<br>
 ✅ Vue i18n — for multi-language support.<br>
 ✅ Three.js — for interactive 3D graphics.<br>
-✅ Axios — for API integration (OpenWeather Map).<br>
+✅ Axios — for API integration (CoinGecko API).<br>
 ✅ JavaScript and TypeScript — for reliability and interactivity.<br>
 ✅ Google Analytics & Search Console — for performance optimization and analytics.<br>
 ✅ Open Graph Protocol, Favicon, Sitemap, Robots.txt — for SEO optimization and social media integration.
