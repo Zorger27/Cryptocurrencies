@@ -50,9 +50,7 @@ table {border-collapse: collapse;}
 }
 
 .fa, .fas {cursor: pointer;}
-.fa.fa-th {color: deepskyblue;}
 .fa.fa-face-grin-stars {color: darkgoldenrod;}
-.fa.fa-list {color: darkgoldenrod;}
 .fa.fa-hat-wizard {color: darkgoldenrod;}
 .fa.fa-yin-yang {color: darkgoldenrod;}
 .fas.fa-arrow-alt-circle-down {color: mediumvioletred;}
@@ -63,6 +61,18 @@ table {border-collapse: collapse;}
 .fa.fa-wallet {color: lightseagreen;}
 .fa.fa-sack-dollar {color: lightseagreen;}
 .fa.fa-bitcoin-sign {color: lightseagreen;}
+
+.fa.fa-th {
+  transition: text-shadow .3s ease-in-out;
+  color: deepskyblue;
+  &:hover {text-shadow: 2px 2px 4px black;}
+}
+
+.fa.fa-list {
+  transition: text-shadow .3s ease-in-out;
+  color: darkgoldenrod;
+  &:hover {text-shadow: 2px 2px 4px black;}
+}
 
 @media(max-width:1020px) {
   line {width: 100%;}
