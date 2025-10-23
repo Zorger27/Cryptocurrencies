@@ -21,6 +21,7 @@ import CryptosCreep3d from "@/components/other/CryptosCreep3d.vue";
 
     this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
     this.setPageTitle(mainTitle);
+    this.setCanonical(url);
   },
   methods: {
     changeCrip3d() {

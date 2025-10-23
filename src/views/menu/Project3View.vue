@@ -22,6 +22,7 @@ import CryptosCreep from "@/components/other/CryptosCreep.vue";
 
     this.setOpenGraphTags(metaDescription, title, description, imageUrl, url);
     this.setPageTitle(mainTitle);
+    this.setCanonical(url);
   },
   methods: {
     changeCrip() {
